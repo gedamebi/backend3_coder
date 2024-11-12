@@ -6,7 +6,7 @@ const getMockingPets = async(req,res)=>{
     if (!count || !Number(count)){
         return res.status(404).send({status:"error", error:"Falta parametro en la consulta"})
     }
-    const pets = generatePets(count)
+    const pets = await generatePets(count)
     res.status(201).send({status:"success", payload:pets})
 }
 
@@ -15,7 +15,7 @@ const getMockingUsers = async(req,res)=>{
     if (!count || !Number(count)){
         return res.status(404).send({status:"error", error:"Falta parametro en la consulta"})
     }
-    const users = generateUsers(count)
+    const users = await generateUsers(count)
     res.status(201).send({status:"success", payload:users})
 }
 
@@ -35,7 +35,7 @@ const generateData = async(req,res)=>{
         return res.status(500).send({status:"error", error:"Error al agregar registro a la DB"})
     }
 
-    const petsList = generatePets(pets)
+    const petsList = await generatePets(pets)
     try {
         for (const pet of petsList){
             await petsService.create(pet)

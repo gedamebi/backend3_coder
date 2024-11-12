@@ -13,10 +13,7 @@ export const passwordValidation = async(user,password) => bcrypt.compare(passwor
 export const generateUsers = async (count) => {
 
     const users = []
-    for (let i=0; i<=count; i++){
-
-        //const passwordHash = await createHash('coder123')
-
+    for (let i=0; i<count; i++){
         const user = {
             first_name: faker.person.firstName(),
             last_name: faker.person.lastName(),
@@ -31,10 +28,10 @@ export const generateUsers = async (count) => {
 }
 
 
-export const generatePets = (count) => {
+export const generatePets = async (count) => {
 
     const pets = []
-    for (let i=0; i<=count; i++){
+    for (let i=0; i<count; i++){
 
         const pet = {
             name: faker.animal.petName(),
