@@ -1,0 +1,112 @@
+paths:
+  /api/sessions/register/:
+    post:
+      summary: Registrar nuevo usuario
+      tags:
+        - Sessions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/requestBodies/updateUser"
+      responses:
+        "200":
+          description: "Se registro nuevo usuario"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+        "400":
+          description: "User already exists"
+        "500":
+          description: Ocurrio un error a nivel de base de datos
+  /api/sessions/login/:
+    post:
+      summary: Login de usuario
+      tags:
+        - Sessions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/requestBodies/loginUser"
+      responses:
+        "200":
+          description: Logged in
+        "400":
+          description: Incomplete values
+        "401":
+          description: Incorrect password
+        "404":
+          description: User doesn't exist
+        "500":
+          description: Ocurrio un error a nivel de base de datos
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: id de mongo
+        first_name:
+          type: String
+          description: Nombre del usuario
+        last_name:
+          type: String
+          description: Apellido del usuario
+        email:
+          type: String
+          description: correo del usuario
+        password:
+          type: String
+          description: contraseña
+        role:
+          type: String
+          description: rol del usuario
+      example:
+        _id: ObjectId("453k5nk34jn5as")
+        first_name: Mauri
+        last_name: Espinosa
+        email: mauri1999@correo.com
+        password: sarasa
+  requestBodies:
+    updateUser:
+      type: object
+      properties:
+        first_name:
+          type: String
+          description: Nombre del usuario
+        last_name:
+          type: String
+          description: Apellido del usuario
+        email:
+          type: String
+          description: correo del usuario
+        password:
+          type: String
+          description: contraseña
+        role:
+          type: String
+          description: rol del usuario
+      example:
+        first_name: Mauricio
+        last_name: Espinosa
+        email: mauriCrack@correo.com
+        password: 123
+    loginUser:
+      type: object
+      properties:
+        email:
+          type: String
+          description: correo del usuario
+        password:
+          type: String
+          description: contraseña
+      example:
+        email: mauriCrack@correo.com
+        password: 123

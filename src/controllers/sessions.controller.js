@@ -17,23 +17,30 @@ const register = async (req, res) => {
             password: hashedPassword
         }
         let result = await usersService.create(user);
-        console.log(result);
-        res.send({ status: "success", payload: result._id });
+        res.send({ status: "Se registro nuevo usuario", payload: result._id });
     } catch (error) {
-
+        const currentDate = new Date();
+        req.logger.warning('Error en registro de sessions ' + error + ' > ' + currentDate.toString())
+        res.status(500).send({status:"error",payload:"Error en registro de sessions"}) 
     }
 }
 
 const login = async (req, res) => {
     const { email, password } = req.body;
-    if (!email || !password) return res.status(400).send({ status: "error", error: "Incomplete values" });
-    const user = await usersService.getUserByEmail(email);
-    if(!user) return res.status(404).send({status:"error",error:"User doesn't exist"});
-    const isValidPassword = await passwordValidation(user,password);
-    if(!isValidPassword) return res.status(400).send({status:"error",error:"Incorrect password"});
-    const userDto = UserDTO.getUserTokenFrom(user);
-    const token = jwt.sign(userDto, process.env.SECRET, {expiresIn:"1h"});
-    res.cookie('coderCookie',token,{maxAge:3600000}).send({status:"success",message:"Logged in"})
+    try {
+        if (!email || !password) return res.status(400).send({ status: "error", error: "Incomplete values" });
+        const user = await usersService.getUserByEmail(email);
+        if(!user) return res.status(404).send({status:"error",error:"User doesn't exist"});
+        const isValidPassword = await passwordValidation(user,password);
+        if(!isValidPassword) return res.status(401).send({status:"error",error:"Incorrect password"});
+        const userDto = UserDTO.getUserTokenFrom(user);
+        const token = jwt.sign(userDto, process.env.SECRET, {expiresIn:"1h"});
+        res.cookie('coderCookie',token,{maxAge:3600000}).send({status:"success",message:"Logged in"})
+    } catch (error) {
+        const currentDate = new Date();
+        req.logger.warning('Error en registro de sessions ' + error + ' > ' + currentDate.toString())
+        res.status(500).send({status:"error",payload:"Error en registro de sessions"}) 
+    }
 }
 
 const current = async(req,res) =>{
