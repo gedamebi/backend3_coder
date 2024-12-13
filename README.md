@@ -48,6 +48,12 @@ docker run -p 8080:8080 gedamebi/entregafinal
 
 - Comprobar dichos registros insertados mediante los servicios GET de users y pets
 
+- Agrego documentacion en Sessions y en User
+
+- Agrego test para Session y Adoption
+
+- Creo imagen de docker y subo a github
+
 ***
 
 <br><br>
