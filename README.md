@@ -4,6 +4,18 @@
 Primera pre entrega.
 ***
 
+## Repositorio en dockerhub
+```
+
+docker pull gedamebi/entregafinal
+
+docker run -p 8080:8080 gedamebi/entregafinal 
+
+```
+
+## Link de proyecto en dockerhub
+- [Proyecto docker](https://hub.docker.com/r/gedamebi/entregafinal)
+
 
 <br>
 <h2 align="center">Lenguaje y Herramientas</h2>
