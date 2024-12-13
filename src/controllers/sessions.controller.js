@@ -35,7 +35,7 @@ const login = async (req, res) => {
         if(!isValidPassword) return res.status(401).send({status:"error",error:"Incorrect password"});
         const userDto = UserDTO.getUserTokenFrom(user);
         const token = jwt.sign(userDto, process.env.SECRET, {expiresIn:"1h"});
-        res.cookie('coderCookie',token,{maxAge:3600000}).send({status:"success",message:"Logged in"})
+        res.cookie('coderCookie',token,{maxAge:3600000}).status(200).send({status:"success",message:"Logged in"})
     } catch (error) {
         const currentDate = new Date();
         req.logger.warning('Error en registro de sessions ' + error + ' > ' + currentDate.toString())

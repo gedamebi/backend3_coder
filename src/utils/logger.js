@@ -19,14 +19,15 @@ const customValues = {
     }
 }
 
-const logger = winston.createLogger({
+export const logger = winston.createLogger({
     levels: customValues.levels,
     transports: [
         new winston.transports.Console({ level: 'http', format: winston.format.combine(
             winston.format.colorize({colors: customValues.colors}),
             winston.format.simple()
         ) }),
-        new winston.transports.File({ level: 'warning', filename: './src/logs/error.log' })
+        new winston.transports.File({ level: 'warning', filename: './src/logs/error.log' }),
+        new winston.transports.File({ level: 'info', filename: './src/logs/info.log' }),
     ]
 })
 
