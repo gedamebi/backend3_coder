@@ -1,7 +1,7 @@
 ﻿<h1 align="center">Curso Backend III</h1><br><br>
 
 ## Descripción 
-Primera pre entrega.
+Entrega final modulo 3 backend
 ***
 
 ## Repositorio en dockerhub
