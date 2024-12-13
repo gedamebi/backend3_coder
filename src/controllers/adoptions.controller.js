@@ -35,8 +35,8 @@ const createAdoption = async(req,res)=>{
     try {
         await usersService.update(user._id,{pets:user.pets})
         await petsService.update(pet._id,{adopted:true,owner:user._id})
-        await adoptionsService.create({owner:user._id,pet:pet._id})
-        res.send({status:"success",message:"Pet adopted"})
+        const result = await adoptionsService.create({owner:user._id,pet:pet._id})
+        res.send({status:"success",payload:result})
     } catch (e){
         const currentDate = new Date();
         req.logger.warning('Error en la creacion de adoption ' + e + ' > ' + currentDate.toString())
